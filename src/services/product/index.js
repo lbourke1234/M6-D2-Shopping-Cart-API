@@ -39,6 +39,18 @@ productRouter.post('/', async (req, res, next) => {
     next(err)
   }
 })
+productRouter.post('/:productId/reviews', async (req, res, next) => {
+  try {
+    const newProduct = await Review.create({
+      ...req.body,
+      productId: req.params.productId
+    })
+    res.send(newProduct)
+  } catch (error) {
+    console.log(error)
+    next(err)
+  }
+})
 productRouter.put('/:id', async (req, res, next) => {
   try {
     const product = await Product.update(req.body, {
